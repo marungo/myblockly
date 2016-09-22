@@ -62,7 +62,7 @@ Blockly.Blocks['move'] = {
     init: function() {
         this.setHelpUrl("www.google.com")
         this.setColour(20);
-        this.appendValueInput()
+        this.appendValueInput("move")
             .setCheck("Number")
             .appendField("move")
             .appendField(new Blockly.FieldDropdown([["forward", "FORWARD"],["backward", "BACKWARD"]]));
@@ -87,6 +87,17 @@ Blockly.Blocks['turn'] = {
   }
 };
 
+
+Blockly.Blocks['number'] = {
+  init: function() {
+    this.appendDummyInput('num')
+        .appendField(new Blockly.FieldTextInput("100"), "number");
+    this.setOutput(true, "Number");
+    this.setColour(330);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
 
 
 

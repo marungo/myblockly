@@ -7,6 +7,7 @@
     <script src="blockly/msg/js/en.js"></script>
     <script src="javascript.js"></script>
     <script src="blocks.js"></script>
+    <script src="vars.js"></script>
     <style>
       html, body {
         background-color: #fff;
@@ -21,6 +22,9 @@
       }
     </style>
     <script>
+      //INITIALIZE CANVAS AND PEN
+      // var ctx = document.getElementById("myCanvas").getContext('2d');
+
       function init() {
         Blockly.inject(document.body, {toolbox: document.getElementById('toolbox')});
         // Let the top-level application know that Blockly is ready.
@@ -32,6 +36,12 @@
         rootBlock.setMovable(false);
         rootBlock.setDeletable(false);
 
+        var c = getDocument.getElementById("myCanvas");
+        var ctx = c.getContext('2d');
+        console.log(ctx);
+        ctx.moveTo(0,0);
+        var currentX = 0;
+        var currentY = 0;
       }
     </script>
   </head>
@@ -44,7 +54,9 @@
         <block type="move"></block>
         <block type="turn"></block>
       </category>
-
+      <category name="Math">
+        <block type="number"></block>
+      </category>
     </xml>
   </body>
 </html>
