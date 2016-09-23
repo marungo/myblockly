@@ -5,9 +5,7 @@
     <script src="blockly/blockly_uncompressed.js"></script>
     <script src="blockly/generators/javascript.js"></script>
     <script src="blockly/msg/js/en.js"></script>
-    <script src="javascript.js"></script>
     <script src="blocks.js"></script>
-    <script src="vars.js"></script>
     <style>
       html, body {
         background-color: #fff;
@@ -27,8 +25,6 @@
 
       function init() {
         Blockly.inject(document.body, {toolbox: document.getElementById('toolbox')});
-        // Let the top-level application know that Blockly is ready.
-        window.parent.blockly_loaded(Blockly);
 
         var rootBlock = Blockly.Block.obtain(Blockly.mainWorkspace, 'page_settings');
         rootBlock.initSvg();
@@ -36,12 +32,15 @@
         rootBlock.setMovable(false);
         rootBlock.setDeletable(false);
 
-        var c = getDocument.getElementById("myCanvas");
+        var c = document.getElementById("myCanvas");
         var ctx = c.getContext('2d');
         console.log(ctx);
         ctx.moveTo(0,0);
         var currentX = 0;
         var currentY = 0;
+
+        // Let the top-level application know that Blockly is ready.
+        window.parent.blockly_loaded(Blockly);
       }
     </script>
   </head>

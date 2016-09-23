@@ -13,6 +13,13 @@
 			code = window.Blockly.JavaScript.workspaceToCode();
 			eval(code);
 		}
+
+		var c = document.getElementById("myCanvas");
+        var ctx = c.getContext('2d');
+        console.log(ctx);
+        ctx.moveTo(0,0);
+        var currentX = 0;
+        var currentY = 0;
 	</script>
 </head>
 <body>
