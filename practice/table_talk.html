@@ -1,0 +1,32 @@
+<html>
+<head>
+	<title>Testing Tables</title>
+	<!-- <link rel="stylesheet" type="text/css" href="styles.css" /> -->
+</head>
+<body>
+	<h1 id="header">Testing Table Talk</h1>
+	<div id="blockly_editor">
+		<!-- Blockly will be injected in the iframe below //-->
+		<table border="1">
+			<tr>
+				<td id="broadcast" width="50%"><button onclick="draw()">Press Me</button></td>
+				<td id="receive">Canvas
+					<canvas id="myCanvas" width="400px" height="300" style="border:1px solid #000000;">
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
+<script>
+	var ctx;
+	function draw() {
+		var c = document.getElementById("myCanvas");
+		ctx = c.getContext("2d");
+		// console.log(ctx);
+		ctx.moveTo(0,0);
+		ctx.beginPath();
+		ctx.arc(150,150,40,0,2*Math.PI);
+		ctx.stroke();
+	}
+</script>
