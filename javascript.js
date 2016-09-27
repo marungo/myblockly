@@ -31,14 +31,21 @@ Blockly.JavaScript['color_yellow'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.JavaScript['turn'] = function(block) {
+  var dropdown_move = block.getFieldValue('turn');
+  var value_turn = Blockly.JavaScript.valueToCode(block, 'turn', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = "angle += " + value_turn;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.JavaScript['move'] = function(block) {
   var dropdown_move = block.getFieldValue('move');
-  var value_move = Blockly.JavaScript.valueToCode(block, 'move', Blockly.JavaScript.ORDER_ATOMIC);
-  if (drowndown_move == "forward") {
-    var code = "ctx.forward(" + value_move + ")";
-  } else {
-    var code = "ctx.forward(" + -value_move + ")";
+  var speed = Blockly.JavaScript.valueToCode(block, 'move', Blockly.JavaScript.ORDER_ATOMIC);
+  if (drowndown_move == "backward") {
+    speed = -speed;
   }
+  var code = "ctx.moveTo(" + speed + "*sin(angle)" 
+      + ", " + speed + "*cos(angle))";
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 

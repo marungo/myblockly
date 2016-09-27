@@ -13,6 +13,17 @@
     <script src="blocks.js"></script>
 </head>
 <body>
+	<script>
+		window.blockly_loaded = function(blockly) {
+			return window.Blockly = blockly;
+		}
+		
+		window.run_code = function() {
+			code = window.Blockly.JavaScript.workspaceToCode();
+			console.log(code);
+			eval(code);
+		}
+	</script>
 	<h1 id="header">Testing Table Talk</h1>
 	
 	<!-- TABLE WHERE CANVAS AND BLOCKLY INJECTION COMMUNICATE-->
@@ -20,7 +31,9 @@
 		<tr>
 			<td id="broadcast" width="50%">
 				<div id="blockly" style="height:90%"></div>
-				<button onclick="draw()">Press Me</button></td>
+				<button onclick="run_code()">Press Me</button>
+				<button onclick="initializeTurtl()">Reset</button>
+			</td>
 			<td id="receive">
 				<canvas id="myCanvas" style="border:1px solid #000000;" width="500px" height="350px">
 			</td>
@@ -42,30 +55,19 @@
     </xml>
 
 	<script>
-		var ctx;
-		function draw() {
+		var x = 0;
+		var y = 0;
+		var angle = 90;
+
+		function initializeTurtle() {
 			var c = document.getElementById("myCanvas");
-			ctx = c.getContext("2d");
-			// console.log(ctx);
-			ctx.moveTo(0,0);
-			ctx.beginPath();
-			ctx.arc(50,50,40,0,2*Math.PI);
-			ctx.stroke();
+			ctx = c.getContext('2d');
+			ctx.moveTo(x,y);
 		}
 
 		var blocklyArea = document.getElementById("blockly");
 		var workspace = Blockly.inject(blocklyArea,
 	      {toolbox: document.getElementById('toolbox')});
-	</script>
-
-	<script>
-		window.blockly_loaded = function(blockly) {
-			return window.Blockly = blockly;
-		}
-		window.run_code = function() {
-			code = window.Blockly.JavaScript.workspaceToCode();
-			eval(code);
-		}
 	</script>
 </body>
 </html>
