@@ -8,7 +8,7 @@ Blockly.JavaScript['page_settings'] = function(block) {
   code += 'document.body.style.backgroundColor = "' + value_background + '";\n';
   code += 'document.getElementById("description").innerHTML = "' + value_paragraph + '";\n';
   code += statements_page_header;
-  return code;
+  return code;€2
 };
 
 Blockly.JavaScript['page_header'] = function(block) {

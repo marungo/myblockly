@@ -24,20 +24,11 @@
       // var ctx = document.getElementById("myCanvas").getContext('2d');
 
       function init() {
-        Blockly.inject(document.body, {toolbox: document.getElementById('toolbox')});
-
         var rootBlock = Blockly.Block.obtain(Blockly.mainWorkspace, 'page_settings');
         rootBlock.initSvg();
         rootBlock.render();
         rootBlock.setMovable(false);
         rootBlock.setDeletable(false);
-
-        var c = document.getElementById("myCanvas");
-        var ctx = c.getContext('2d');
-        console.log(ctx);
-        ctx.moveTo(0,0);
-        var currentX = 0;
-        var currentY = 0;
 
         // Let the top-level application know that Blockly is ready.
         window.parent.blockly_loaded(Blockly);
