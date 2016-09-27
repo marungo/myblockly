@@ -8,7 +8,7 @@ Blockly.JavaScript['page_settings'] = function(block) {
   code += 'document.body.style.backgroundColor = "' + value_background + '";\n';
   code += 'document.getElementById("description").innerHTML = "' + value_paragraph + '";\n';
   code += statements_page_header;
-  return code;€2
+  return code;
 };
 
 Blockly.JavaScript['page_header'] = function(block) {
@@ -32,8 +32,7 @@ Blockly.JavaScript['color_yellow'] = function(block) {
 };
 
 Blockly.JavaScript['turn'] = function(block) {
-  var dropdown_move = block.getFieldValue('turn');
-  var value_turn = Blockly.JavaScript.valueToCode(block, 'turn', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_turn = Blockly.JavaScript.valueToCode(block, 'angle', Blockly.JavaScript.ORDER_ATOMIC);
   var code = "angle += " + value_turn;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };

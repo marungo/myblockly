@@ -4,26 +4,14 @@
 	<!-- <link rel="stylesheet" type="text/css" href="styles.css" /> -->
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="styles.css" />
-	<script src="javascript.js"></script>
-	<script src="blocks.js"></script>
 	<script src="blockly/blockly_uncompressed.js"></script>
 	<script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/generators/javascript.js"></script>
     <script src="blockly/msg/js/en.js"></script>
     <script src="blocks.js"></script>
+    <script src="js-interpreter/acorn_interpreter.js"></script>
 </head>
 <body>
-	<script>
-		window.blockly_loaded = function(blockly) {
-			return window.Blockly = blockly;
-		}
-		
-		window.run_code = function() {
-			code = window.Blockly.JavaScript.workspaceToCode();
-			console.log(code);
-			eval(code);
-		}
-	</script>
 	<h1 id="header">Testing Table Talk</h1>
 	
 	<!-- TABLE WHERE CANVAS AND BLOCKLY INJECTION COMMUNICATE-->
@@ -68,6 +56,50 @@
 		var blocklyArea = document.getElementById("blockly");
 		var workspace = Blockly.inject(blocklyArea,
 	      {toolbox: document.getElementById('toolbox')});
+
+		window.blockly_loaded = function(blockly) {
+			return window.Blockly = blockly;
+		}
+		
+		window.run_code = function() {
+			Blockly.JavaScript.addReservedWords('code');
+			code = window.Blockly.JavaScript.workspaceToCode();
+			// var myInterpreter = new Interpreter(code, initApi);
+			// myInterpreter.run();
+			console.log(code);
+			try {
+				eval(code);
+			} catch (e) {
+				alert(e);
+			}
+		}
+
+		// function initApi(interpreter, scope) {
+		//   // Add an API function for the alert() block.
+		//   var wrapper = function(text) {
+		//     text = text ? text.toString() : '';
+		//     return interpreter.createPrimitive(alert(text));
+		//   };
+		//   interpreter.setProperty(scope, 'alert',
+		//       interpreter.createNativeFunction(wrapper));
+
+		//   // Add an API function for the prompt() block.
+		//   wrapper = function(text) {
+		//     text = text ? text.toString() : '';
+		//     return interpreter.createPrimitive(prompt(text));
+		//   };
+		//   interpreter.setProperty(scope, 'prompt',
+		//       interpreter.createNativeFunction(wrapper));
+		// }
+
+		// function nextStep() {
+		// 	if (myInterpreter.step()) {
+		// 		window.setTimeout(nextStep, 10);
+		// 	}
+		// }
+		// nextStep();
 	</script>
+	<script src="javascript.js"></script>
+	<script src="blocks.js"></script>
 </body>
 </html>
