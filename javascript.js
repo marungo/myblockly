@@ -40,11 +40,11 @@ Blockly.JavaScript['turn'] = function(block) {
 Blockly.JavaScript['move'] = function(block) {
   var dropdown_move = block.getFieldValue('move');
   var speed = Blockly.JavaScript.valueToCode(block, 'move', Blockly.JavaScript.ORDER_ATOMIC);
-  if (drowndown_move == "backward") {
+  if (dropdown_move == "backward") {
     speed = -speed;
   }
-  var code = "ctx.moveTo(" + speed + "*sin(angle)" 
-      + ", " + speed + "*cos(angle))";
+  var code = "ctx.lineTo(" + speed + "*Math.sin(angle)" 
+      + ", " + speed + "*Math.cos(angle)); ctx.stroke();";
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 

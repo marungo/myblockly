@@ -26,6 +26,7 @@
         rootBlock.render();
         rootBlock.setMovable(false);
         rootBlock.setDeletable(false);
+        initializeTurtle();
 
         // Let the top-level application know that Blockly is ready.
         window.parent.blockly_loaded(Blockly);

@@ -43,14 +43,16 @@
     </xml>
 
 	<script>
-		var x = 0;
-		var y = 0;
+		var x = 50;
+		var y = 50;
 		var angle = 90;
+		var initialized = false;
+		var visible = true;
 
 		function initializeTurtle() {
 			var c = document.getElementById("myCanvas");
 			ctx = c.getContext('2d');
-			ctx.moveTo(x,y);
+			ctx.moveTo(50,50);
 		}
 
 		var blocklyArea = document.getElementById("blockly");
@@ -62,6 +64,10 @@
 		}
 		
 		window.run_code = function() {
+			if (!initialized) {
+				initializeTurtle();
+				initialized = true;
+			}
 			Blockly.JavaScript.addReservedWords('code');
 			code = window.Blockly.JavaScript.workspaceToCode();
 			// var myInterpreter = new Interpreter(code, initApi);
