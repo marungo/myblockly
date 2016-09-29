@@ -8,7 +8,11 @@
 	<script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/generators/javascript.js"></script>
     <script src="blockly/msg/js/en.js"></script>
-    <script src="blocks.js"></script>
+    <script src="blockly/blocks/logic.js"></script>
+    <script src="blockly/blocks/loops.js"></script>
+    <script src="blockly/blocks/math.js"></script>
+    <script src="blockly/blocks/variables.js"></script>
+    <script src="blockly/blocks/procedures.js"></script>
     <script src="js-interpreter/acorn_interpreter.js"></script>
 </head>
 <body>
@@ -20,7 +24,7 @@
 			<td id="broadcast" width="50%">
 				<div id="blockly" style="height:90%"></div>
 				<button onclick="run_code()">Press Me</button>
-				<button onclick="initializeTurtl()">Reset</button>
+				<button onclick="initializeTurtle()">Reset</button>
 			</td>
 			<td id="receive">
 				<canvas id="myCanvas" style="border:1px solid #000000;" width="500px" height="350px">
@@ -36,23 +40,54 @@
       <category name="Movement">
         <block type="move"></block>
         <block type="turn"></block>
+        <block type="pen"></block>
+        <block type="width"></block>
       </category>
+      <category name="Variables" custom="VARIABLE"></category>
+	  <category name="Functions" custom="PROCEDURE"></category>
       <category name="Math">
         <block type="number"></block>
+        <block type="math_arithmetic"></block>
+        <block type="math_single"></block>
+        <block type="math_trig"></block>
+        <block type="math_change"></block>
+        <block type="math_round"></block>
+        <block type="math_modulo"></block>
+		<block type="math_random_int"></block>
+		<block type="math_random_float"></block>
       </category>
+      <category name="Control">
+        <block type="controls_if"></block>
+        <block type="controls_if_else"></block>
+        <block type="controls_repeat"></block>
+        <block type="controls_repeat_ext"></block>
+        <block type="controls_forEach"></block>
+        <block type="controls_for"></block>
+        <block type="controls_whileUntil"></block>
+        <block type="procedures_ifreturn"></block>
+      </category>
+      <category name="Logic">
+        <block type="logic_compare"></block>
+        <block type="logic_operation"></block>
+        <block type="logic_boolean"></block>
+      </category>
+      <category name="Variables">
+        <block type="variables_set"></block>
+        <block type="variables_get"></block>
+      </category>  
     </xml>
 
 	<script>
-		var x = 50;
-		var y = 50;
-		var angle = 90;
-		var initialized = false;
+		var x = 100;
+		var y = 100;
+		var angle = 0;
 		var visible = true;
+		var initialized = false;
 
 		function initializeTurtle() {
 			var c = document.getElementById("myCanvas");
 			ctx = c.getContext('2d');
-			ctx.moveTo(50,50);
+			ctx.moveTo(x,y);
 		}
 
 		var blocklyArea = document.getElementById("blockly");
@@ -68,6 +103,7 @@
 				initializeTurtle();
 				initialized = true;
 			}
+
 			Blockly.JavaScript.addReservedWords('code');
 			code = window.Blockly.JavaScript.workspaceToCode();
 			// var myInterpreter = new Interpreter(code, initApi);
@@ -105,7 +141,8 @@
 		// }
 		// nextStep();
 	</script>
-	<script src="javascript.js"></script>
-	<script src="blocks.js"></script>
+	<script src="blockly/javascript_compressed.js"></script>
+	<script src="myjavascript.js"></script>
+	<script src="myblocks.js"></script>
 </body>
 </html>

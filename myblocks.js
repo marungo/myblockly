@@ -77,7 +77,7 @@ Blockly.Blocks['turn'] = {
   init: function() {
     this.appendValueInput("angle")
         .setCheck("Number")
-        .appendField("turn")
+        .appendField("turn counter-clockwise")
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(20);
@@ -85,7 +85,6 @@ Blockly.Blocks['turn'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
-
 
 Blockly.Blocks['number'] = {
   init: function() {
@@ -97,6 +96,46 @@ Blockly.Blocks['number'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
+
+//TO DO
+
+Blockly.Blocks['width'] = {
+  init: function() {
+    this.appendValueInput("width")
+        .setCheck("Number")
+        .appendField("set width");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(20);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['pen'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("pen")
+        .appendField(new Blockly.FieldDropdown([["up", "UP"], ["down", "DOWN"], ["", ""]]), "up");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(20);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['rect'] = {
+  init: function() {
+    this.appendDummyInput('num')
+        .appendField(new Blockly.FieldTextInput("100"), "number");
+    this.setOutput(true, "Number");
+    this.setColour(330);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
 
 
 
