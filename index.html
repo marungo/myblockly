@@ -8,12 +8,17 @@
 	<script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/generators/javascript.js"></script>
     <script src="blockly/msg/js/en.js"></script>
+    <script src="js-interpreter/acorn_interpreter.js"></script>
+    <!--Scripts for my blocks-->
+    <script src="myblocks.js"></script>
+    <!--Scripts for Neil's blocks-->
     <script src="blockly/blocks/logic.js"></script>
     <script src="blockly/blocks/loops.js"></script>
     <script src="blockly/blocks/math.js"></script>
     <script src="blockly/blocks/variables.js"></script>
     <script src="blockly/blocks/procedures.js"></script>
-    <script src="js-interpreter/acorn_interpreter.js"></script>
+    <!--Script for Turtle movements-->
+    <script src="turtle.js"></script>
 </head>
 <body>
 	<h1 id="header">Testing Table Talk</h1>
@@ -23,11 +28,13 @@
 		<tr>
 			<td id="broadcast" width="50%">
 				<div id="blockly" style="height:90%"></div>
-				<button onclick="run_code()">Press Me</button>
-				<button onclick="initializeTurtle()">Reset</button>
+				<button onclick="initializeTurtle()">Start</button>
+				<button onclick="run_code()">Run</button>
+				<button onclick="resetEverything()">Reset</button>
 			</td>
 			<td id="receive">
 				<canvas id="myCanvas" style="border:1px solid #000000;" width="500px" height="350px">
+				<img id="turtle" src="turtle.jpg">
 			</td>
 		</tr>
 	</table>
@@ -78,16 +85,47 @@
     </xml>
 
 	<script>
-		var x = 100;
-		var y = 100;
+		var x = 0;
+		var y = 0;
 		var angle = 0;
-		var visible = true;
 		var initialized = false;
+		var c;
+		var ctx;
+		var turtle = document.getElementById('turtle');
+		// We might have to 
+		var allCode = "resetCanvas();";//start from beginning
+		var postpendCode = "ctx.drawImage(turtle,-(TURTLE_WIDTH/2), -(TURTLE_HEIGHT/2), TURTLE_WIDTH, TURTLE_HEIGHT);"//add turtle
+		var TURTLE_HEIGHT = 18;
+		var TURTLE_WIDTH = 22;
+		// var QUARTER_TURN_RADIANS = 90 * (Math.PI/180);
 
 		function initializeTurtle() {
-			var c = document.getElementById("myCanvas");
-			ctx = c.getContext('2d');
-			ctx.moveTo(x,y);
+			if (!initialized) {
+				c = document.getElementById("myCanvas");
+				ctx = c.getContext('2d');
+				initialized = true;
+			}
+			resetEverything();
+			//draw image of turtle to show where user is
+			drawTurtle();
+		}
+
+		function resetCanvas() {
+			ctx.restore();//default positions
+			ctx.save();
+			ctx.clearRect(0, 0, c.width, c.height);
+			// return to original Turtle settings
+			ctx.translate(c.width/2.0,c.height/2.0);
+			x = 0;
+			y = 0;
+			ctx.moveTo(0,0);
+			//reset angles, draw circle to indicate where it is
+			angle = 0;
+		}
+
+		function resetEverything() {
+			resetCanvas();
+			allCode = "resetCanvas();"
 		}
 
 		var blocklyArea = document.getElementById("blockly");
@@ -141,8 +179,13 @@
 		// }
 		// nextStep();
 	</script>
-	<script src="blockly/javascript_compressed.js"></script>
+    <!--Scripts for my generator-->
 	<script src="myjavascript.js"></script>
-	<script src="myblocks.js"></script>
+    <!--Scripts for Neil's generators-->
+    <script src="blockly/generators/javascript/logic.js"></script>
+    <script src="blockly/generators/javascript/loops.js"></script>
+    <script src="blockly/generators/javascript/math.js"></script>
+    <script src="blockly/generators/javascript/variables.js"></script>
+    <script src="blockly/generators/javascript/procedures.js"></script>
 </body>
 </html>

@@ -34,10 +34,12 @@ Blockly.JavaScript['color_yellow'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-//turn counter-clockwise by num of degrees
+//turn counter-clockwise by num of degrees. Function convert to radians for trig purposes
 Blockly.JavaScript['turn'] = function(block) {
   var value_turn = Blockly.JavaScript.valueToCode(block, 'angle', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = "angle += " + value_turn + ";";
+  allCode = allCode + "angle += " + value_turn + "*(Math.PI/180);" +
+            "\nctx.rotate((360-" + value_turn + ")*(Math.PI/180));\n" 
+  var code = allCode + postpendCode;
   return code;
 };
 
@@ -49,8 +51,9 @@ Blockly.JavaScript['move'] = function(block) {
   if (dropdown_move == "backward") {
     speed = -speed;
   }
-  var code = "ctx.lineTo((" + speed + "*Math.sin(angle))" 
-      + ", (" + speed + "*Math.cos(angle))); ctx.stroke();";
+  allCode = allCode + "\nctx.lineTo(" + speed + ",0);\nctx.stroke();\n"
+                + "ctx.translate(" + speed + ",0);\nctx.moveTo(0,0);\n";
+  var code = allCode+postpendCode;
   return code;
 };
 
