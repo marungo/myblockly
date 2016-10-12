@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Testing Tables</title>
+	<title>Blockly Turtleblocks</title>
 	<!-- <link rel="stylesheet" type="text/css" href="styles.css" /> -->
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="styles.css" />
@@ -21,7 +21,7 @@
     <script src="turtle.js"></script>
 </head>
 <body>
-	<h1 id="header">Testing Table Talk</h1>
+	<h1 id="header">Blockly Makes Blocks</h1>
 	
 	<!-- TABLE WHERE CANVAS AND BLOCKLY INJECTION COMMUNICATE-->
 	<table width="100%" height="500px">
@@ -46,9 +46,14 @@
       </category>
       <category name="Movement">
         <block type="move"></block>
-        <block type="turn"></block>
+        <block type="turnLeft"></block>
+        <block type="turnRight"></block>
+        <block type="moveTo"></block>
+     </category>
+     <category name="Pen">
         <block type="pen"></block>
         <block type="width"></block>
+        <block type="penColor"></block>
       </category>
       <category name="Variables" custom="VARIABLE"></category>
 	  <category name="Functions" custom="PROCEDURE"></category>
@@ -88,13 +93,14 @@
 		var x = 0;
 		var y = 0;
 		var angle = 0;
+		var visible = true;
 		var initialized = false;
 		var c;
 		var ctx;
 		var turtle = document.getElementById('turtle');
 		// We might have to 
-		var allCode = "resetCanvas();";//start from beginning
-		var postpendCode = "ctx.drawImage(turtle,-(TURTLE_WIDTH/2), -(TURTLE_HEIGHT/2), TURTLE_WIDTH, TURTLE_HEIGHT);"//add turtle
+		var allCode = "resetCanvas();\n";//start from beginning
+		var drawMyTurtle = "ctx.drawImage(turtle,-(TURTLE_WIDTH/2), -(TURTLE_HEIGHT/2), TURTLE_WIDTH, TURTLE_HEIGHT);"//add turtle
 		var TURTLE_HEIGHT = 18;
 		var TURTLE_WIDTH = 22;
 		// var QUARTER_TURN_RADIANS = 90 * (Math.PI/180);
@@ -116,8 +122,8 @@
 			ctx.clearRect(0, 0, c.width, c.height);
 			// return to original Turtle settings
 			ctx.translate(c.width/2.0,c.height/2.0);
-			x = 0;
-			y = 0;
+			// x = 0;
+			// y = 0;
 			ctx.moveTo(0,0);
 			//reset angles, draw circle to indicate where it is
 			angle = 0;
@@ -137,11 +143,6 @@
 		}
 		
 		window.run_code = function() {
-			if (!initialized) {
-				initializeTurtle();
-				initialized = true;
-			}
-
 			Blockly.JavaScript.addReservedWords('code');
 			code = window.Blockly.JavaScript.workspaceToCode();
 			// var myInterpreter = new Interpreter(code, initApi);
