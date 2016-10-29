@@ -72,7 +72,7 @@ Blockly.JavaScript['number'] = function(block) {
 };
 
 //TO DO:
-Blockly.JavaScript['width'] = function(block) {
+Blockly.JavaScript['penWidth'] = function(block) {
   var value_width = Blockly.JavaScript.valueToCode(block, 'width', Blockly.JavaScript.ORDER_ATOMIC);
   allCode = allCode + 'ctx.lineWidth=' + value_width + ";";
   return allCode;

@@ -114,7 +114,7 @@ Blockly.Blocks['number'] = {
 
 //TO DO
 
-Blockly.Blocks['width'] = {
+Blockly.Blocks['penWidth'] = {
   init: function() {
     this.appendValueInput("width")
         .setCheck("Number")
@@ -126,8 +126,6 @@ Blockly.Blocks['width'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
-
-// ADDED ON BUS OR ARE UNFINISHED
 
 Blockly.Blocks['moveTo'] = {
     init: function() {
