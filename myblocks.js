@@ -114,7 +114,7 @@ Blockly.Blocks['number'] = {
 
 //TO DO
 
-Blockly.Blocks['penWidth'] = {
+Blockly.Blocks['penThickness'] = {
   init: function() {
     this.appendValueInput("width")
         .setCheck("Number")
@@ -146,7 +146,7 @@ Blockly.Blocks['moveTo'] = {
 Blockly.Blocks['pen'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("pen")
+        .appendField("set pen")
         .appendField(new Blockly.FieldDropdown([["up", "UP"], ["down", "DOWN"]]), "pen");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -180,8 +180,40 @@ Blockly.Blocks['rect'] = {
   }
 };
 
+// *********************************************************** //
+// TO DO
+// *********************************************************** //
 
+Blockly.Blocks['penUpBoolean'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("pen is down");
+    this.setOutput(true, 'Boolean');
+    this.setColour(20);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
 
+Blockly.Blocks['getPenThickness'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("get pen thickness");
+    this.setOutput(true, 'Number');
+    this.setColour(20);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
 
-
+Blockly.Blocks['getPenColor'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("get pen color");
+    this.setOutput(true, 'Color');
+    this.setColour(20);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
 

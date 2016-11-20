@@ -52,11 +52,14 @@
      </category>
      <category name="Pen">
         <block type="pen"></block>
-        <block type="penWidth"></block>
+        <block type="penThickness"></block>
         <block type="penColor"></block>
+        <block type="penUpBoolean"></block>
+        <block type="getPenThickness"></block>
+        <block type="getPenColor"></block>
       </category>
       <category name="Variables" custom="VARIABLE"></category>
-	  <category name="Functions" custom="PROCEDURE"></category>
+	  <category name="Procedures" custom="PROCEDURE"></category>
       <category name="Math">
         <block type="number"></block>
         <block type="math_arithmetic"></block>
@@ -83,24 +86,30 @@
         <block type="logic_operation"></block>
         <block type="logic_boolean"></block>
       </category>
-      <category name="Variables">
-        <block type="variables_set"></block>
-        <block type="variables_get"></block>
-      </category>  
     </xml>
 
 	<script>
+
+		//document.getElementsByTagName("svg")[0].setAttribute("width");
+
+		// initialize global vars for drawing
 		var x = 0;
 		var y = 0;
 		var angle = 0;
-		var visible = true;
 		var initialized = false;
+		//pen vars
+		var color = 0xFFFFFF;
+		var visible = true;
+		var penThickness = 0;
+		// initialize canvas
 		var c;
 		var ctx;
+
 		var turtle = document.getElementById('turtle');
 		// We might have to 
-		var allCode = "resetCanvas();\n";//start from beginning
-		var drawMyTurtle = "ctx.drawImage(turtle,-(TURTLE_WIDTH/2), -(TURTLE_HEIGHT/2), TURTLE_WIDTH, TURTLE_HEIGHT);"//add turtle
+		var allCode = "";
+		var initialCode = "resetCanvas();\n";
+		var drawTurtleCode = "ctx.drawImage(turtle,-(TURTLE_WIDTH/2), -(TURTLE_HEIGHT/2), TURTLE_WIDTH, TURTLE_HEIGHT);"//add turtle
 		var TURTLE_HEIGHT = 18;
 		var TURTLE_WIDTH = 22;
 		// var QUARTER_TURN_RADIANS = 90 * (Math.PI/180);
@@ -114,6 +123,14 @@
 			resetEverything();
 			//draw image of turtle to show where user is
 			drawTurtle();
+		}
+
+		function printJSONString() {
+			ctx.save();
+			ctx.restore();
+			ctx.save();
+			var data = ctx.getImageData(0,0,c.width, c.height);
+			console.log(JSON.stringify(data));
 		}
 
 		function resetCanvas() {
@@ -131,7 +148,7 @@
 
 		function resetEverything() {
 			resetCanvas();
-			allCode = "resetCanvas();"
+			allCode = "";
 		}
 
 		var blocklyArea = document.getElementById("blockly");
@@ -147,9 +164,9 @@
 			code = window.Blockly.JavaScript.workspaceToCode();
 			// var myInterpreter = new Interpreter(code, initApi);
 			// myInterpreter.run();
-			console.log(code);
+			console.log(initialCode + code + drawTurtleCode);
 			try {
-				eval(code);
+				eval(initialCode + code + drawTurtleCode);
 			} catch (e) {
 				alert(e);
 			}
@@ -179,6 +196,7 @@
 		// 	}
 		// }
 		// nextStep();
+
 	</script>
     <!--Scripts for my generator-->
 	<script src="myjavascript.js"></script>

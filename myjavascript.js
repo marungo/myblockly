@@ -37,32 +37,41 @@ Blockly.JavaScript['color_yellow'] = function(block) {
 //turn counter-clockwise by num of degrees. Function convert to radians for trig purposes
 Blockly.JavaScript['turnLeft'] = function(block) {
   var value_turn = Blockly.JavaScript.valueToCode(block, 'angle', Blockly.JavaScript.ORDER_ATOMIC);
-  allCode = allCode + "angle += " + value_turn + "*(Math.PI/180);" +
+  var code = "angle += " + value_turn + "*(Math.PI/180);" +
             "\nctx.rotate((360-" + value_turn + ")*(Math.PI/180));\n" 
-  return allCode + drawMyTurtle;
+  return code;
 };
 
 //turn counter-clockwise by num of degrees. Function convert to radians for trig purposes
 Blockly.JavaScript['turnRight'] = function(block) {
   var value_turn = Blockly.JavaScript.valueToCode(block, 'angle', Blockly.JavaScript.ORDER_ATOMIC);
-  allCode = allCode + "angle -= " + value_turn + "*(Math.PI/180);" +
-            "\nctx.rotate((360-" + value_turn + ")*(Math.PI/180));\n" 
-  return allCode + drawMyTurtle;
+  var code = "angle -= " + value_turn + "*(Math.PI/180);" +
+            "\nctx.rotate((360-" + value_turn + ")*(Math.PI/180));\n";
+  return code;
 };
 
 //Move either backwards or forwards the amount given
 Blockly.JavaScript['move'] = function(block) {
   var dropdown_move = block.getFieldValue('move');
   var speed = Blockly.JavaScript.valueToCode(block, 'move', Blockly.JavaScript.ORDER_ATOMIC);
-  console.log(speed);
+  //console.log(speed);
   if (dropdown_move == "backward")
     speed = -speed;
-  console.log(visible);
-  console.log(ctx.strokeStyle);
+  //console.log(visible);
+  //console.log(ctx.strokeStyle);
+  var code = "";
   if (visible)
-    allCode = allCode + "\nctx.lineTo(" + speed + ",0);\nctx.stroke();\n";
-  allCode = allCode + "ctx.translate(" + speed + ",0);\nctx.moveTo(0,0);\n";
-  return allCode + drawMyTurtle;
+    code = "\nctx.lineTo(" + speed + ",0);\nctx.stroke();\n";
+  code += "ctx.translate(" + speed + ",0);\nctx.moveTo(0,0);\n";
+  return code;
+};
+
+Blockly.JavaScript['moveTo'] = function(block) {
+  var x_pos  = block.getFieldValue('x');
+  var y_pos = block.getFieldValue('y');
+  var code = "\nctx.restore();\nctx.translate((c.width/2) + " + x_pos + 
+          ", (c.height/2) - " + y_pos + ");\nctx.moveTo(0,0);";
+  return code;
 };
 
 //Integer block
@@ -71,35 +80,42 @@ Blockly.JavaScript['number'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-//TO DO:
-Blockly.JavaScript['penWidth'] = function(block) {
+// PEN METHODS
+Blockly.JavaScript['penThickness'] = function(block) {
   var value_width = Blockly.JavaScript.valueToCode(block, 'width', Blockly.JavaScript.ORDER_ATOMIC);
-  allCode = allCode + 'ctx.lineWidth=' + value_width + ";";
-  return allCode;
+  penThickness = value_width;
+  var code = 'ctx.lineWidth=' + value_width + ";";
+  return code;
 };
 
 Blockly.JavaScript['pen'] = function(block) {
   var dropdown_up = block.getFieldValue('pen');
-  console.log(dropdown_up);
-  if (dropdown_up == "UP") 
-    allCode = allCode + "visible = false;\n";
-  else 
-    allCode = allCode + "visible = true;\n";
-  return allCode;
+  // console.log(dropdown_up);
+  var code = "visible = true;\n";
+  if (dropdown_up == "UP")
+    code = "visible = false;\n";
+  return code;
 };
 
 Blockly.JavaScript['penColor'] = function(block) {
   var hex = block.getFieldValue('color');
-  allCode = allCode + "\nctx.strokeStyle = \"" + hex + "\";\n";
-  return allCode;
+  color = hex;
+  var code = "\nctx.strokeStyle = \"" + hex + "\";\n";
+  return code;
 };
 
-Blockly.JavaScript['moveTo'] = function(block) {
-  var x_pos  = block.getFieldValue('x');
-  var y_pos = block.getFieldValue('y');
-  allCode = allCode + "\nctx.restore();\nctx.translate((c.width/2) + " + x_pos + 
-            ", (c.height/2) - " + y_pos + ");\nctx.moveTo(0,0);";
-  return allCode + drawMyTurtle;
+Blockly.JavaScript['penUpBoolean'] = function(block) {
+  // console.log(visible);
+  return ["visible", Blockly.JavaScript.ORDER_ATOMIC];
 };
 
+Blockly.JavaScript['getPenThickness'] = function(block) {
+  // console.log(penThickness);
+  return ["penThickness", Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.JavaScript['getPenColor'] = function(block) {
+  // console.log(color);
+  return ["color", Blockly.JavaScript.ORDER_ATOMIC];
+}
 
