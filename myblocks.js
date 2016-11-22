@@ -74,7 +74,7 @@ Blockly.Blocks['move'] = {
 };
 
 
-Blockly.Blocks['turnLeft'] = {
+Blockly.Blocks['turn_left'] = {
   init: function() {
     this.appendValueInput("angle")
         .setCheck("Number")
@@ -88,7 +88,7 @@ Blockly.Blocks['turnLeft'] = {
 };
 
 
-Blockly.Blocks['turnRight'] = {
+Blockly.Blocks['turn_right'] = {
   init: function() {
     this.appendValueInput("angle")
         .setCheck("Number")
@@ -114,7 +114,7 @@ Blockly.Blocks['number'] = {
 
 //TO DO
 
-Blockly.Blocks['penThickness'] = {
+Blockly.Blocks['pen_thickness'] = {
   init: function() {
     this.appendValueInput("width")
         .setCheck("Number")
@@ -127,7 +127,7 @@ Blockly.Blocks['penThickness'] = {
   }
 };
 
-Blockly.Blocks['moveTo'] = {
+Blockly.Blocks['move_to'] = {
     init: function() {
         this.setColour(20);
         this.appendDummyInput("x")
@@ -136,10 +136,9 @@ Blockly.Blocks['moveTo'] = {
         this.appendDummyInput("y")
             .appendField("              y: ")
             .appendField(new Blockly.FieldTextInput("0"), "y")
-        this.setTooltip('');
+        this.setTooltip('move to particular x,y coordinate');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setTooltip('');
     }
 };
 
@@ -151,12 +150,12 @@ Blockly.Blocks['pen'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(20);
-    this.setTooltip('');
+    this.setTooltip('bring pen up or down');
     this.setHelpUrl('http://www.example.com/');
   }
 };
 
-Blockly.Blocks['penColor'] = {
+Blockly.Blocks['pen_color'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("set pen color")
@@ -169,33 +168,22 @@ Blockly.Blocks['penColor'] = {
     }
 };
 
-Blockly.Blocks['rect'] = {
-  init: function() {
-    this.appendDummyInput('num')
-        .appendField(new Blockly.FieldTextInput("100"), "number");
-    this.setOutput(true, "Number");
-    this.setColour(330);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
-
 // *********************************************************** //
 // TO DO
 // *********************************************************** //
 
-Blockly.Blocks['penUpBoolean'] = {
+Blockly.Blocks['pen_up_boolean'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("pen is down");
     this.setOutput(true, 'Boolean');
     this.setColour(20);
-    this.setTooltip('');
+    this.setTooltip('returns true if pen is down');
     this.setHelpUrl('http://www.example.com/');
   }
 };
 
-Blockly.Blocks['getPenThickness'] = {
+Blockly.Blocks['pen_get_thickness'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("get pen thickness");
@@ -206,7 +194,7 @@ Blockly.Blocks['getPenThickness'] = {
   }
 };
 
-Blockly.Blocks['getPenColor'] = {
+Blockly.Blocks['pen_get_color'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("get pen color");
@@ -217,3 +205,135 @@ Blockly.Blocks['getPenColor'] = {
   }
 };
 
+
+// TO DO
+
+Blockly.Blocks['shape_arc'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("get pen color");
+    this.setOutput(true, 'Color');
+    this.setColour(20);
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['shape_ellipse'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("draw ellipse");
+    this.appendValueInput("x")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("x:");
+    this.appendValueInput("y")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("y:");
+    this.appendValueInput("size")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("horizontal radius");
+    this.appendValueInput("size")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("vertical radius");
+    this.appendValueInput("filled")
+        .setCheck("Boolean")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("filled:");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['shape_circle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("draw circle");
+    this.appendValueInput("x")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("(x):");
+    this.appendValueInput("y")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("(y):");
+    this.appendValueInput("size")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("radius:");
+    this.appendValueInput("filled")
+        .setCheck("Boolean")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("filled:");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['shape_rect'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("draw rectangle");
+    this.appendValueInput("x")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("(x):");
+    this.appendValueInput("y")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("(y):");
+    this.appendValueInput("width")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("width:");
+    this.appendValueInput("height")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("height:");
+    this.appendValueInput("filled")
+        .setCheck("Boolean")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("filled:");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['shape_square'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("draw square");
+    this.appendValueInput("x")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("x:");
+    this.appendValueInput("y")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("y:");
+    this.appendValueInput("size")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("size:");
+    this.appendValueInput("filled")
+        .setCheck("Boolean")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("filled:");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};

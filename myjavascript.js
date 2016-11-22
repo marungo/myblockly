@@ -35,7 +35,7 @@ Blockly.JavaScript['color_yellow'] = function(block) {
 };
 
 //turn counter-clockwise by num of degrees. Function convert to radians for trig purposes
-Blockly.JavaScript['turnLeft'] = function(block) {
+Blockly.JavaScript['turn_left'] = function(block) {
   var value_turn = Blockly.JavaScript.valueToCode(block, 'angle', Blockly.JavaScript.ORDER_ATOMIC);
   var code = "angle += " + value_turn + "*(Math.PI/180);" +
             "\nctx.rotate((360-" + value_turn + ")*(Math.PI/180));\n" 
@@ -43,7 +43,7 @@ Blockly.JavaScript['turnLeft'] = function(block) {
 };
 
 //turn counter-clockwise by num of degrees. Function convert to radians for trig purposes
-Blockly.JavaScript['turnRight'] = function(block) {
+Blockly.JavaScript['turn_right'] = function(block) {
   var value_turn = Blockly.JavaScript.valueToCode(block, 'angle', Blockly.JavaScript.ORDER_ATOMIC);
   var code = "angle -= " + value_turn + "*(Math.PI/180);" +
             "\nctx.rotate((360-" + value_turn + ")*(Math.PI/180));\n";
@@ -57,20 +57,23 @@ Blockly.JavaScript['move'] = function(block) {
   //console.log(speed);
   if (dropdown_move == "backward")
     speed = -speed;
-  //console.log(visible);
-  //console.log(ctx.strokeStyle);
+
   var code = "";
   if (visible)
-    code = "\nctx.lineTo(" + speed + ",0);\nctx.stroke();\n";
-  code += "ctx.translate(" + speed + ",0);\nctx.moveTo(0,0);\n";
+    code = "\nctx.lineTo(" + speed + ",0);\nctx.stroke();";
+  code += "\nctx.translate(" + speed + ",0);\nctx.moveTo(0,0);";
   return code;
 };
 
-Blockly.JavaScript['moveTo'] = function(block) {
+Blockly.JavaScript['move_to'] = function(block) {
   var x_pos  = block.getFieldValue('x');
   var y_pos = block.getFieldValue('y');
-  var code = "\nctx.restore();\nctx.translate((c.width/2) + " + x_pos + 
-          ", (c.height/2) - " + y_pos + ");\nctx.moveTo(0,0);";
+  var code = "\nctx.restore();\nctx.save();\nctx.translate((c.width/2) + " + x_pos + 
+          ", (c.height/2) - " + y_pos + ");";
+  if (visible)
+    code += "\nctx.lineTo(0,0);\nctx.stroke();"
+  else 
+    code += "\nctx.moveTo(0,0);";
   return code;
 };
 
@@ -81,7 +84,7 @@ Blockly.JavaScript['number'] = function(block) {
 };
 
 // PEN METHODS
-Blockly.JavaScript['penThickness'] = function(block) {
+Blockly.JavaScript['pen_thickness'] = function(block) {
   var value_width = Blockly.JavaScript.valueToCode(block, 'width', Blockly.JavaScript.ORDER_ATOMIC);
   penThickness = value_width;
   var code = 'ctx.lineWidth=' + value_width + ";";
@@ -94,28 +97,107 @@ Blockly.JavaScript['pen'] = function(block) {
   var code = "visible = true;\n";
   if (dropdown_up == "UP")
     code = "visible = false;\n";
+  console.log(code);
   return code;
 };
 
-Blockly.JavaScript['penColor'] = function(block) {
+Blockly.JavaScript['pen_color'] = function(block) {
   var hex = block.getFieldValue('color');
   color = hex;
   var code = "\nctx.strokeStyle = \"" + hex + "\";\n";
   return code;
 };
 
-Blockly.JavaScript['penUpBoolean'] = function(block) {
+Blockly.JavaScript['pen_up_boolean'] = function(block) {
   // console.log(visible);
   return ["visible", Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.JavaScript['getPenThickness'] = function(block) {
+Blockly.JavaScript['pen_get_thickness'] = function(block) {
   // console.log(penThickness);
   return ["penThickness", Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.JavaScript['getPenColor'] = function(block) {
+Blockly.JavaScript['pen_get_color'] = function(block) {
   // console.log(color);
   return ["color", Blockly.JavaScript.ORDER_ATOMIC];
 }
 
+
+Blockly.JavaScript['drawArc'] = function(block) {
+  return "";
+}
+
+Blockly.JavaScript['shape_ellipse'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_size = Blockly.JavaScript.valueToCode(block, 'size', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_size = Blockly.JavaScript.valueToCode(block, 'size', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_filled = Blockly.JavaScript.valueToCode(block, 'filled', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = '...;\n';
+  return code;
+};
+
+Blockly.JavaScript['shape_circle'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_size = Blockly.JavaScript.valueToCode(block, 'size', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_filled = Blockly.JavaScript.valueToCode(block, 'filled', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  // if left blank, default to 0
+  value_x = (value_x) ? value_x : 0; 
+  value_y = (value_y) ? value_y : 0;
+
+  var code = '';
+  // CONVERT TO STRING BUILDER
+  if (visible) {
+    code = "\nctx.beginPath();\nctx.fillStyle = \'" + color + "\';\nctx.arc(" + value_x + ", -" + value_y + ", ";
+    code += value_size + ",0,2*Math.PI);\nctx.closePath();";
+    code += (value_filled) ? "\nctx.fill();" : "\nctx.stroke();";
+  }
+  code += "\nctx.restore();\nctx.save();\nctx.translate((c.width/2) + " + value_x + 
+          ", (c.height/2) - " + value_y + ");\nctx.moveTo(0,0);";
+  return code;
+};
+
+Blockly.JavaScript['shape_rect'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_width = Blockly.JavaScript.valueToCode(block, 'width', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_height = Blockly.JavaScript.valueToCode(block, 'height', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_filled = Blockly.JavaScript.valueToCode(block, 'filled', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  
+  // if left blank, default to 0
+  value_x = (value_x) ? value_x : 0; 
+  value_y = (value_y) ? value_y : 0;
+
+  var code = "";
+  if (visible) {
+    code += "\nctx.beginPath();\nctx.fillStyle = \'" + color + "\';"
+    if (value_filled)
+      code += "\nctx.fillRect(";
+    else
+      code += "\nctx.strokeRect(";
+    code += value_x + ", -" + value_y + ", " + value_width + ", " + value_height + ");"
+    code += "\nctx.restore();\nctx.save();\nctx.translate((c.width/2) + " + value_x + 
+          ", (c.height/2) - " + value_y + ");\nctx.moveTo(0,0);";
+  }
+  return code;
+};
+
+Blockly.JavaScript['shape_square'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_size = Blockly.JavaScript.valueToCode(block, 'size', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_filled = Blockly.JavaScript.valueToCode(block, 'filled', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = '';
+  if (value_filled)
+    code = "\nctx.fillRect(";
+  else
+    code = "\nctx.strokeRect(";
+   code += value_x + ", " + value_y + ", " + value_size + ", " + value_size + ");"
+   return code;
+};
